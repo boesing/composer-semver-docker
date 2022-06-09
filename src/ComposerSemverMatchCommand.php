@@ -21,7 +21,7 @@ final class ComposerSemverMatchCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('version', InputArgument::REQUIRED, 'PHP version');
+        $this->addArgument('version', InputArgument::REQUIRED, 'Version');
         $this->addArgument('constraints', InputArgument::REQUIRED, 'Constraint to match against');
     }
 
@@ -34,12 +34,12 @@ final class ComposerSemverMatchCommand extends Command
         Assert::string($constraints);
 
         if (Semver::satisfies($version, $constraints)) {
-            $output->writeln(sprintf('Provided PHP version "%s" is satisfied by the constraints "%s"', $version, $constraints));
+            $output->writeln(sprintf('Provided version "%s" is satisfied by the constraints "%s"', $version, $constraints));
 
             return self::SUCCESS;
         }
 
-        $output->writeln(sprintf('Provided PHP version "%s" is not satisfied by the constraints "%s"', $version, $constraints));
+        $output->writeln(sprintf('Provided version "%s" is not satisfied by the constraints "%s"', $version, $constraints));
         return self::FAILURE;
     }
 }
